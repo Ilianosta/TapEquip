@@ -5,6 +5,9 @@ using UnityEngine;
 public abstract class Character_Base : MonoBehaviour
 {
     [SerializeField] protected CharacterStats statsSO;
+    [SerializeField] protected SkillStatSO[] skills;
+    [SerializeField] protected SkillStatSO selectedSkill;
+
     protected Stats myStats;
     protected void Awake()
     {
@@ -31,11 +34,29 @@ public abstract class Character_Base : MonoBehaviour
     {
         // TODO: CREATE AN EQUIPMENT SYSTEM
     }
-    public void Atack(GameObject target)
+    public void ReceiveSkill(SkillStatSO skill, Character_Base from)
+    {
+        float amount = skill.GetScaledAmount(from.myStats.attack);
+        switch (skill.skillEffect)
+        {
+            case SkillStatSO.SkillEffect.Damage:
+                TakeDamage(amount);
+                break;
+            case SkillStatSO.SkillEffect.Heal:
+                Heal(amount);
+                break;
+            case SkillStatSO.SkillEffect.Barrier:
+                // TODO: BARRIER SYSTEM
+                break;
+            default:
+                break;
+        }
+    }
+    public void UseSkill(GameObject target)
     {
         var validTarget = target.GetComponent<Character_Base>();
         if (validTarget == null) return;
-        validTarget.TakeDamage(myStats.attack);
+        validTarget.ReceiveSkill(selectedSkill, this);
     }
     protected abstract void Die();
     protected abstract void CreateCharacter();

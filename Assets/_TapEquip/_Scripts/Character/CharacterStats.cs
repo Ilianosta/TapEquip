@@ -6,6 +6,7 @@ using UnityEngine;
 public class CharacterStats : ScriptableObject
 {
     public Stats stats;
+    public AnimationCurve statsPerLevel;
 }
 [System.Serializable]
 public class Stats
