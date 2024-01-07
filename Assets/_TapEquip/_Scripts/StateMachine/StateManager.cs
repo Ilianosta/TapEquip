@@ -46,6 +46,7 @@ public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
     public void ChangeState(EState nextStateKey)
     {
         isTransitioningState = true;
+        UIManager.instance.HideAllScreens();
         CurrentState.ExitState();
         CurrentState = States[nextStateKey];
         CurrentState.EnterState();

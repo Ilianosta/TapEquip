@@ -6,10 +6,10 @@ public abstract class Character_Base : MonoBehaviour
 {
     [SerializeField] protected CharacterStats statsSO;
     [SerializeField] protected SkillStatSO[] skills;
-    [SerializeField] protected SkillStatSO selectedSkill;
+    [SerializeField] public SkillStatSO selectedSkill;
 
     protected Stats myStats;
-    protected void Awake()
+    protected virtual void Awake()
     {
         myStats = statsSO.stats;
     }

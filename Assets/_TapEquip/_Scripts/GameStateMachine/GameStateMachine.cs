@@ -14,6 +14,7 @@ public class GameStateMachine : StateManager<GameStateMachine.GameState>
     }
 
     public void BackToMenu() => ChangeState(GameState.menu);
+
     // ENUMS
     public enum GameState
     {

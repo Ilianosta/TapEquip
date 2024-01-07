@@ -7,6 +7,12 @@ public class PlayerController : Character_Base
     [SerializeField] Transform playerSpawnPosition;
     [SerializeField] Transform playerInGamePosition;
 
+    public static System.Action<SkillStatSO> OnSelectSkill;
+    protected override void Awake()
+    {
+        base.Awake();
+        OnSelectSkill += skill => SelectedSkill(skill);
+    }
     protected override void Start()
     {
         base.Start();
@@ -41,6 +47,11 @@ public class PlayerController : Character_Base
     }
     public void SelectedSkill(SkillStatSO skill)
     {
+        if (skill == selectedSkill)
+        {
+            selectedSkill = null;
+            return;
+        }
         selectedSkill = skill;
     }
     private void Update()

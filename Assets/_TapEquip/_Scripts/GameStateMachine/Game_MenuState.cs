@@ -15,7 +15,6 @@ public class Game_MenuState : BaseState<GameStateMachine.GameState>
 
     public override void ExitState()
     {
-        UIManager.instance.ShowMainMenu(false);
     }
 
     public override void UpdateState()

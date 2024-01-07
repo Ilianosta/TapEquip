@@ -17,7 +17,6 @@ public class Game_GameState : BaseState<GameStateMachine.GameState>
     public override void ExitState()
     {
         GameManager.SpawnCharacters?.Invoke(false);
-        UIManager.instance.ShowInGameUI(false);
     }
 
     public override void UpdateState()
