@@ -17,10 +17,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject inGameObj;
     [SerializeField] private UIEndScreen endScreen;
     [SerializeField] private UITargetingScreen targetingScreen;
+    [SerializeField] private UIShopScreen shopScreen;
+
+    public static System.Action<SkillStatSO> OnSendindSkill;
     private void Awake()
     {
         if (UIManager.instance) Destroy(this);
         else UIManager.instance = this;
+
+        OnSendindSkill += skill => SelectTarget(skill);
+    }
+    private void Start()
+    {
+        HideAllScreens();
     }
 
     internal void HideAllScreens()
@@ -29,6 +38,7 @@ public class UIManager : MonoBehaviour
         ShowInGameUI(false);
         ShowEndUI(false);
         ShowTargetingScreen(false);
+        ShowShopScreen(false);
     }
 
     internal void ShowMainMenu(bool show)
@@ -47,12 +57,24 @@ public class UIManager : MonoBehaviour
         endScreen.ShowPlayerWinner(GameManager.instance.playerWins);
     }
 
-    public void ShowTargetingScreen(bool show)
+    internal void ShowShopScreen(bool show)
+    {
+        shopScreen.gameObject.SetActive(show);
+    }
+    internal void ShowTargetingScreen(bool show)
     {
         targetingScreen.gameObject.SetActive(show);
         targetingScreen.EnableTargetMode(show);
     }
 
+    public void SelectTarget(SkillStatSO skillReceived)
+    {
+        Character_Base target = targetingScreen.Target();
+        if (target)
+        {
+            target.ReceiveSkill(skillReceived);
+        }
+    }
     internal void CreateSkillButton(SkillStatSO skill, PlayerController player)
     {
         GameObject button = GameObject.Instantiate(skillPrefabGo, skillParent);

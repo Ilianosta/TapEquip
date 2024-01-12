@@ -17,7 +17,6 @@ public class PlayerController : Character_Base
     {
         base.Start();
         CreateSkillButtons();
-        Debug.Log("Player attack: " + myStats.attack);
     }
     protected override void CreateCharacter()
     {

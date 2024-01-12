@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1e133eb3789ac542a2bbb4ef3ff4453, type: 3}
-  m_Name: Enemy
+  m_Script: {fileID: 11500000, guid: 07f8f64221949b342b6e85922cec9462, type: 3}
+  m_Name: ItemBase2
   m_EditorClassIdentifier: 
-  stats:
-    life: 5
-    attack: 2
-    resistance: 0
-    critRate: 0
-    luck: 0
+  sprite: {fileID: 0}
+  item: {fileID: 0}

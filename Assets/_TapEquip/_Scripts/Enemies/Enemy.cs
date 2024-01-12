@@ -7,7 +7,6 @@ public class Enemy : Character_Base
     protected override void Start()
     {
         base.Start();
-        Debug.Log("Enemy attack: " + myStats.attack);
     }
     protected override void CreateCharacter()
     {

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     private GameStateMachine gameStateMachine;
 
     public static System.Action<bool> SpawnCharacters;
-    internal bool playerWins;
+    internal bool playerWins = false;
 
     private void Awake()
     {

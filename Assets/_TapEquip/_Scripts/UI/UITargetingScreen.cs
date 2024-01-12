@@ -11,12 +11,31 @@ public class UITargetingScreen : MonoBehaviour
         isTargeting = show;
         cursorGO.SetActive(show);
     }
-    
+
     private void Update()
     {
         if (isTargeting)
         {
             cursorGO.transform.position = Input.mousePosition;
         }
+    }
+
+    public Character_Base Target()
+    {
+        Character_Base target = null;
+        Ray ray = Camera.main.ScreenPointToRay(cursorGO.transform.position);
+        RaycastHit rayHit;
+        if (Physics.Raycast(ray, out rayHit))
+        {
+            if (rayHit.collider != null)
+            {
+                GameObject newTarget = rayHit.collider.gameObject;
+                if (newTarget.GetComponent<Character_Base>())
+                {
+                    target = newTarget.GetComponent<Character_Base>();
+                }
+            }
+        }
+        return target;
     }
 }

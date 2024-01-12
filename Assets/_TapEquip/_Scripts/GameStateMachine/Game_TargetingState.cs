@@ -24,7 +24,9 @@ public class Game_TargetingState : BaseState<GameStateMachine.GameState>
 
     public override void UpdateState()
     {
-        
+        if (Input.GetButtonDown("Fire1"))
+        {
+        }
     }
 
     public override void OnTriggerEnter(Collider other)
