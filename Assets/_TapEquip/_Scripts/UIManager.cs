@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
         HideAllScreens();
     }
 
-    internal void HideAllScreens()
+    public void HideAllScreens()
     {
         ShowMainMenu(false);
         ShowInGameUI(false);
@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
         endScreen.ShowPlayerWinner(GameManager.instance.playerWins);
     }
 
-    internal void ShowShopScreen(bool show)
+    public void ShowShopScreen(bool show)
     {
         shopScreen.gameObject.SetActive(show);
     }

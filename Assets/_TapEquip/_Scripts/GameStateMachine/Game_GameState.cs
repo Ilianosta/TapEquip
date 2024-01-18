@@ -21,7 +21,7 @@ public class Game_GameState : BaseState<GameStateMachine.GameState>
 
     public override void UpdateState()
     {
-        Debug.Log("UPDATING GAME_GAME STATE");
+        // Debug.Log("UPDATING GAME_GAME STATE");
     }
 
     public override GameStateMachine.GameState GetNextState()
