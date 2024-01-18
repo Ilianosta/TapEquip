@@ -17,25 +17,32 @@ public class UITargetingScreen : MonoBehaviour
         if (isTargeting)
         {
             cursorGO.transform.position = Input.mousePosition;
+            if (Input.GetButtonDown("Fire1"))
+            {
+                PlayerController.OnCastSkill?.Invoke();
+            }
         }
     }
 
     public Character_Base Target()
     {
         Character_Base target = null;
-        Ray ray = Camera.main.ScreenPointToRay(cursorGO.transform.position);
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(cursorGO.transform.position.x, cursorGO.transform.position.y, Camera.main.transform.position.z));
         RaycastHit rayHit;
         if (Physics.Raycast(ray, out rayHit))
         {
             if (rayHit.collider != null)
             {
                 GameObject newTarget = rayHit.collider.gameObject;
+                Debug.Log("Target scan");
                 if (newTarget.GetComponent<Character_Base>())
                 {
+                    Debug.Log("Target located");
                     target = newTarget.GetComponent<Character_Base>();
                 }
             }
         }
+        if (!target) Debug.Log("Target not founded");
         return target;
     }
 }

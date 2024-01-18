@@ -19,13 +19,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UITargetingScreen targetingScreen;
     [SerializeField] private UIShopScreen shopScreen;
     public UIShopScreen ShopScreen => shopScreen;
-    public static System.Action<SkillStatSO> OnSendindSkill;
     private void Awake()
     {
         if (UIManager.instance) Destroy(this);
         else UIManager.instance = this;
-
-        OnSendindSkill += skill => SelectTarget(skill);
     }
     private void Start()
     {
@@ -39,6 +36,7 @@ public class UIManager : MonoBehaviour
         ShowEndUI(false);
         ShowTargetingScreen(false);
         ShowShopScreen(false);
+        PlayerController.OnSelectSkill?.Invoke(null);
     }
 
     internal void ShowMainMenu(bool show)
@@ -67,13 +65,10 @@ public class UIManager : MonoBehaviour
         targetingScreen.EnableTargetMode(show);
     }
 
-    public void SelectTarget(SkillStatSO skillReceived)
+    public Character_Base SelectTarget()
     {
         Character_Base target = targetingScreen.Target();
-        if (target)
-        {
-            target.ReceiveSkill(skillReceived);
-        }
+        return target;
     }
     internal void CreateSkillButton(SkillStatSO skill, PlayerController player)
     {

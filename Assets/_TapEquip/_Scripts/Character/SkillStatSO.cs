@@ -9,12 +9,6 @@ public class SkillStatSO : ScriptableObject
     public float amountScale;
     public SkillEffect skillEffect;
     public SkillSpecialEffect[] skillSpecialEffect;
-    public Stats skillOwner;
-    public void UseSkill()
-    {
-
-    }
-    public float GetScaledAmount(float scale) => baseAmount + (amountScale + scale);
 
     // Enums
     public enum SkillEffect

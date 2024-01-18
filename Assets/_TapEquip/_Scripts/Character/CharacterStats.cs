@@ -6,26 +6,36 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CharStats", menuName = "TapEquip/CharacterStats", order = 0)]
 public class CharacterStats : ScriptableObject
 {
-    public List<Stats> stats = new List<Stats>();
+    public List<Stat> stats = new List<Stat>();
+
     [ContextMenu("SetDefaultStats")]
     private void SetDefaultStats()
     {
-        stats = new List<Stats>();
+        stats = new List<Stat>();
         stats.Clear();
         StatsBase[] statsBases = System.Enum.GetValues(typeof(StatsBase)) as StatsBase[];
         foreach (StatsBase statBase in statsBases)
         {
-            stats.Add(new Stats(statBase));
+            stats.Add(new Stat(statBase));
         }
+    }
+
+    public Stat GetStat(StatsBase statName)
+    {
+        foreach (Stat stat in stats)
+        {
+            if (stat.statBase == statName) return stat;
+        }
+        return null;
     }
 }
 [System.Serializable]
-public class Stats
+public class Stat
 {
     public StatsBase statBase;
-    [NonSerialized] public float amount;
+    public float amount;
     public AnimationCurve amountPerLevel;
-    public Stats(StatsBase statBase)
+    public Stat(StatsBase statBase)
     {
 
         this.statBase = statBase;

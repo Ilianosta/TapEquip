@@ -18,11 +18,6 @@ public class UISkillButton : MonoBehaviour
             else selected = false;
             ShowEnabled(selected);
         };
-
-        UIManager.OnSendindSkill(skill);
-    }
-    private void Start() {
-        
     }
     public void ShowEnabled(bool show)
     {

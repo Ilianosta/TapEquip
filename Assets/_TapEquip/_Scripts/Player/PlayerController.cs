@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Purchasing;
 
 public class PlayerController : Character_Base
 {
@@ -8,15 +9,28 @@ public class PlayerController : Character_Base
     [SerializeField] Transform playerInGamePosition;
 
     public static System.Action<SkillStatSO> OnSelectSkill;
+    public static System.Action OnCastSkill;
     protected override void Awake()
     {
         base.Awake();
         OnSelectSkill += skill => SelectedSkill(skill);
+        OnCastSkill += CastSkill;
     }
+
     protected override void Start()
     {
         base.Start();
         CreateSkillButtons();
+    }
+
+    private void CastSkill()
+    {
+        Debug.Log("CASTING SKILL");
+        Character_Base target = UIManager.instance.SelectTarget();
+        if (target)
+        {
+            UseSkill(target);
+        }
     }
     protected override void CreateCharacter()
     {

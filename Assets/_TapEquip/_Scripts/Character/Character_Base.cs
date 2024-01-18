@@ -8,11 +8,10 @@ public abstract class Character_Base : MonoBehaviour
     [SerializeField] protected SkillStatSO[] skills;
     [SerializeField] public SkillStatSO selectedSkill;
 
-    protected Stats myStats;
+    [SerializeField] private List<Stat> stats = new List<Stat>();
     protected virtual void Awake()
     {
-        // myStats = statsSO.stats;
-        foreach (SkillStatSO skill in skills) skill.skillOwner = myStats;
+        stats = statsSO.stats;
     }
     protected virtual void Start()
     {
@@ -21,17 +20,14 @@ public abstract class Character_Base : MonoBehaviour
             if (show) CreateCharacter();
             else HideCharacter();
         };
-        if (skills.Length > 0)
-            ReceiveSkill(skills[0]);
     }
     public void TakeDamage(float amount)
     {
-        // myStats.life -= amount;
-        // if (myStats.life < 0) Die();
+        GetStat(StatsBase.life).amount -= amount;
     }
     public void Heal(float amount)
     {
-        // myStats.life += amount;
+        GetStat(StatsBase.life).amount += amount;
     }
     public void ApplyEquipmentStats()
     {
@@ -39,29 +35,32 @@ public abstract class Character_Base : MonoBehaviour
     }
     public void ReceiveSkill(SkillStatSO skill)
     {
-        // float amount = skill.GetScaledAmount(skill.skillOwner.attack);
-        // Debug.Log("Skill without scaled" + skill.baseAmount);
+        float amount = skill.baseAmount;
+        Debug.Log("Skill without scaled" + skill.baseAmount);
         // Debug.Log("Skill with scaled: " + amount);
-        // switch (skill.skillEffect)
-        // {
-        //     case SkillStatSO.SkillEffect.Damage:
-        //         TakeDamage(amount);
-        //         break;
-        //     case SkillStatSO.SkillEffect.Heal:
-        //         Heal(amount);
-        //         break;
-        //     case SkillStatSO.SkillEffect.Barrier:
-        //         // TODO: BARRIER SYSTEM
-        //         break;
-        //     default:
-        //         break;
-        // }
+        switch (skill.skillEffect)
+        {
+            case SkillStatSO.SkillEffect.Damage:
+                TakeDamage(amount);
+                break;
+            case SkillStatSO.SkillEffect.Heal:
+                Heal(amount);
+                break;
+            case SkillStatSO.SkillEffect.Barrier:
+                // TODO: BARRIER SYSTEM
+                break;
+            default:
+                break;
+        }
     }
-    public void UseSkill(GameObject target)
+    public void UseSkill(Character_Base target)
     {
-        var validTarget = target.GetComponent<Character_Base>();
-        if (validTarget == null) return;
-        validTarget.ReceiveSkill(selectedSkill);
+        target.ReceiveSkill(selectedSkill);
+    }
+    public Stat GetStat(StatsBase statName)
+    {
+        Stat stat = stats.Find((stat) => stat.statBase.Equals(statName));
+        return stat;
     }
     protected abstract void Die();
     protected abstract void CreateCharacter();
