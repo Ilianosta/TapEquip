@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class UIShopScreen : MonoBehaviour
 {
-    [SerializeField] private GameObject shopItemPrefab;
-    [SerializeField] private Transform shopItemsParent;
-    [SerializeField] private List<ShopItem> shopItems = new List<ShopItem>();
+    [SerializeField] private GameObject _shopItemPrefab;
+    [SerializeField] private Transform _shopItemsParent;
+    [SerializeField] private List<ShopItem> _shopItems = new List<ShopItem>();
+    [SerializeField] private UISkillDescription _skillDescriptionPanel;
     private const string SHOP_ITEMS_FOLDER = "_ScriptableObjects/ShopItems/";
     private void Awake()
     {
@@ -19,18 +20,24 @@ public class UIShopScreen : MonoBehaviour
 
         foreach (ShopItemSO shopItemData in shopItemDataArray)
         {
-            GameObject shopItemGO = Instantiate(shopItemPrefab, shopItemsParent);
+            GameObject shopItemGO = Instantiate(_shopItemPrefab, _shopItemsParent);
             ShopItem shopItemComponent = shopItemGO.GetComponent<ShopItem>();
 
             if (shopItemComponent != null)
             {
                 shopItemComponent.Item = shopItemData;
-                shopItems.Add(shopItemComponent);
+                _shopItems.Add(shopItemComponent);
             }
             else
             {
                 Debug.LogError("The prefab doesn't have the script ShopItem");
             }
         }
+    }
+
+    public void ShowShopItemDescription(bool show, ShopItemSO shopItem = null)
+    {
+        if (shopItem != null) _skillDescriptionPanel.SetShopItemDescription(shopItem);
+        _skillDescriptionPanel.gameObject.SetActive(show);
     }
 }

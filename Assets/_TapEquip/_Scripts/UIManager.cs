@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIEndScreen endScreen;
     [SerializeField] private UITargetingScreen targetingScreen;
     [SerializeField] private UIShopScreen shopScreen;
-
+    public UIShopScreen ShopScreen => shopScreen;
     public static System.Action<SkillStatSO> OnSendindSkill;
     private void Awake()
     {

@@ -24,7 +24,8 @@ public class CurrencyManager : MonoBehaviour
     public enum CurrencyType
     {
         basic,
-        premium
+        premium,
+        experience
     }
     [System.Serializable]
     public class Currency
